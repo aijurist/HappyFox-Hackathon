@@ -40,14 +40,12 @@ prompt = PromptTemplate(
 content_generation_chain = create_chain(llm, parser, prompt)
 
 def get_enhanced_content(input_text, style):
-
-    # Invoke the chain to generate the content choices
+    '''Function to invoke the chain for the given input text and style'''
+    #chain invoking to generate content
     result = content_generation_chain.invoke({
         "input_text": input_text,
         "style": style
     })
-
-    # Print the result (choices generated)
     print(json.dumps(result, indent=4))
     return result
 

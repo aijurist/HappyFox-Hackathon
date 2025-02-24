@@ -7,6 +7,5 @@ Features:
 - Preprocessing of text data
 - Hate speech classification
 - Confidence scoring
-- Model training and evaluation
 """
 __version__="1.0.0"

@@ -9,8 +9,13 @@ from content.schema import InputSchema
 from model.schema import HateSpeechInputSchema
 from model.load_model import load_model
 
+from thread_summarizer.main import summarize_long_thread
+from thread_summarizer.schema import InputSummarySchema
+
 hate_text_det_model = load_model()
 app = FastAPI()
+
+
 @app.post("/generate_content")
 async def generate_content(request: InputSchema):
     try:
@@ -45,3 +50,12 @@ async def predict_text(request: HateSpeechInputSchema):
 
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/summary")
+async def summary(request : InputSummarySchema):
+    try:
+        thread_text = request.thread_text
+        summary = summarize_long_thread(thread_text=thread_text)
+        return { 'summary' : summary}
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))      
